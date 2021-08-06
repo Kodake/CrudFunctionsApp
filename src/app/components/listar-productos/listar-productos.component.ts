@@ -13,6 +13,7 @@ export class ListarProductosComponent implements OnInit {
   productos: Producto[] = [];
   pageNumber: number = 1;
   nombre: any;
+  loading: boolean = false;
 
   constructor(private toastr: ToastrService, private productoService: ProductoService) { }
 
@@ -21,11 +22,11 @@ export class ListarProductosComponent implements OnInit {
   }
 
   obtenerProductos() {
+    this.loading = true;
     this.productoService.obtenerProductos().subscribe(data => {
       this.productos = data;
-      console.log(data);
-      console.log('lolxd');
-      
+      this.loading = false;
+      console.log(data);      
     }, error => {
       console.log(error);
     });
